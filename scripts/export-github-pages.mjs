@@ -39,8 +39,8 @@ for (const directory of ["assets", "images"]) {
 html = html
   .replaceAll('"/favicon.svg', `"${sitePath}favicon.svg`)
   .replaceAll(
-    "https://oysterlab.github.io/og.png",
-    `${siteUrl}og.png`,
+    "https://oysterlab.github.io/og-v2.png",
+    `${siteUrl}og-v2.png`,
   )
   .replace(
     '<meta property="og:url" content="https://oysterlab.github.io"/>',
