@@ -654,7 +654,7 @@ export function EbookReader() {
           </button>
           <button type="button" className="brand-button" onClick={() => scrollTo("cover")}>
             <b>ELURA</b>
-            <span>공간번역의 시대</span>
+            <span>취향을 공간에 풀어내는 시대</span>
           </button>
         </div>
 

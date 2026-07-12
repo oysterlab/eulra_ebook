@@ -32,14 +32,14 @@ test("server-renders the complete Korean web ebook", async () => {
 
   const html = await response.text();
   assert.match(html, /<html[^>]+lang="ko"/i);
-  assert.match(html, /<title>공간번역의 시대 \| ELURA<\/title>/i);
-  assert.match(html, /취향은 넘치는데, 왜 집은 아직 나를 닮지 못하는가/);
-  assert.match(html, /왜 지금 공간번역인가/);
-  assert.match(html, /타깃은 틀릴 수 있어야 한다/);
+  assert.match(html, /<title>취향을 공간에 풀어내는 시대 \| ELURA<\/title>/i);
+  assert.match(html, /좋아하는 것은 많은데, 왜 내 방에 둘 작품은 고르기 어려운가/);
+  assert.match(html, /왜 지금 이런 서비스가 가능해졌나/);
+  assert.match(html, /고객 가설은 데이터에 따라 바꿔야 한다/);
   assert.match(html, /주석과 출처/);
   assert.match(html, /@elura_studio7/);
   assert.match(html, /aria-label="모바일 독서 설정"/);
-  assert.match(html, /property="og:image" content="http:\/\/localhost\/og\.png"/);
+  assert.match(html, /property="og:image" content="http:\/\/localhost\/og-v2\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
 
   const renderedPages = html.match(/data-reader-page/g) ?? [];
@@ -58,7 +58,7 @@ test("keeps production content and print assets self-contained", async () => {
     readFile(new URL("../lib/base-book.json", import.meta.url), "utf8"),
     readFile(new URL("../lib/expanded-chapters.ts", import.meta.url), "utf8"),
     access(new URL("../public/images/cover.jpg", import.meta.url)),
-    access(new URL("../public/og.png", import.meta.url)),
+    access(new URL("../public/og-v2.png", import.meta.url)),
   ]);
 
   assert.match(packageJson, /elura-space-translation-web-ebook/);
@@ -71,8 +71,8 @@ test("keeps production content and print assets self-contained", async () => {
   assert.match(reader, /ArrowRight/);
   assert.match(reader, /setReadingMode\("paged"\)/);
   assert.match(baseBook, /Pinterest, Q1 2026/);
-  assert.match(expanded, /여성은 시장의 울타리가 아니라/);
-  assert.match(expanded, /국가보다 도시, 도시보다 방/);
+  assert.match(expanded, /첫 조사 대상은 구체적으로 정하되/);
+  assert.match(expanded, /출시 국가는 같아도 방은 모두 다르다/);
   assert.equal(cover, undefined);
   assert.equal(socialImage, undefined);
 

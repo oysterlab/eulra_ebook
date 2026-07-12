@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 
-const title = "공간번역의 시대 | ELURA";
+const title = "취향을 공간에 풀어내는 시대 | ELURA";
 const description =
-  "취향은 넘치는데 왜 집은 아직 나를 닮지 못하는가. 집, 취향, AI와 주문형 생산이 만나는 변화를 추적한 ELURA의 웹 ebook.";
+  "좋아하는 것은 많은데 왜 내 방에 둘 작품은 고르기 어려운가. 저장 이미지, 실제 방, AI와 주문형 생산을 함께 살펴본 ELURA의 웹 ebook.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -16,18 +16,18 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto")?.split(",")[0]?.trim() ||
     (host.startsWith("localhost") ? "http" : "https");
   const origin = `${protocol}://${host}`;
-  const socialImage = `${origin}/og.png`;
+  const socialImage = `${origin}/og-v2.png`;
 
   return {
     title,
     description,
-    applicationName: "공간번역의 시대",
+    applicationName: "취향을 공간에 풀어내는 시대",
     authors: [{ name: "ELURA" }],
     creator: "ELURA",
     publisher: "ELURA",
     category: "문화비평",
     keywords: [
-      "공간번역",
+      "공간 맞춤",
       "취향",
       "인테리어",
       "AI",
@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: socialImage,
           width: 1200,
           height: 630,
-          alt: "공간번역의 시대 - ELURA Culture Forecast 01",
+          alt: "취향을 공간에 풀어내는 시대 - ELURA Culture Forecast 01",
         },
       ],
     },

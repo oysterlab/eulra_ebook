@@ -87,7 +87,7 @@ for (const rawLine of lines) {
     flush();
     const heading = cleanInline(levelOne[1]);
 
-    if (heading === "공간번역의 시대") continue;
+    if (heading === "취향을 공간에 풀어내는 시대") continue;
 
     const part = heading.match(/^(\d+)부$/);
     const chapter = heading.match(/^(\d+)장\.\s*(.+)$/);

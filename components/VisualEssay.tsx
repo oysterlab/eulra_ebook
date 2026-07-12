@@ -42,27 +42,27 @@ const FigureShell = ({
 
 function TranslationGap() {
   return (
-    <FigureShell eyebrow="핵심 모델" title="번역의 공백은 어디에 있는가">
+    <FigureShell eyebrow="핵심 문제" title="좋아하는 것과 실제로 고르는 것은 다르다">
       <div className="gap-flow">
         <div className="flow-node tone-coral">
           <CircleUserRound aria-hidden="true" />
-          <strong>정체성 단서</strong>
-          <span>장소 · 음악 · 기억 · 색 · 물건</span>
+          <strong>내가 좋아하는 것</strong>
+          <span>저장 이미지 · 장소 · 음악 · 기억 · 색</span>
         </div>
         <div className="flow-bridge">
-          <span>발견은 많고</span>
-          <b>번역은 비어 있다</b>
-          <span>결정은 어렵다</span>
+          <span>자료는 많지만</span>
+          <b>고르는 기준이 없다</b>
+          <span>그래서 결정을 미룬다</span>
         </div>
         <div className="flow-node tone-jade">
           <Frame aria-hidden="true" />
-          <strong>실제 공간</strong>
-          <span>빛 · 비율 · 가구 · 재료 · 예산</span>
+          <strong>지금 꾸밀 방</strong>
+          <span>벽 크기 · 빛 · 가구 · 재료 · 예산</span>
         </div>
       </div>
       <p className="visual-thesis">
-        영감은 무엇을 좋아할 수 있는지 보여 준다. 번역은 무엇이 이 사람의
-        이 방에 속하는지 결정한다.
+        취향이 없는 것이 아니다. 좋아하는 자료를 지금 방에 맞는 작품으로
+        좁히기 어려운 것이 문제다.
       </p>
     </FigureShell>
   );
@@ -71,8 +71,8 @@ function TranslationGap() {
 function PinterestScale() {
   return (
     <FigureShell
-      eyebrow="시대의 신호"
-      title="취향은 이미 거대한 흔적을 남긴다"
+      eyebrow="시장 데이터"
+      title="사람들은 이미 수십억 번 검색하고 저장한다"
       source="Pinterest Q1 2026 Earnings Presentation 〔6〕"
     >
       <div className="stat-triptych">
@@ -120,8 +120,8 @@ function ChoiceOverload() {
   ];
   return (
     <FigureShell
-      eyebrow="선택 빈곤"
-      title="결과가 많아서가 아니라, 비교가 복잡해서 멈춘다"
+      eyebrow="선택이 어려워지는 조건"
+      title="결과가 많을수록 비교할 항목도 늘어난다"
       source="Choice overload meta-analysis, 2015 〔10〕"
     >
       <div className="choice-axis">
@@ -145,7 +145,8 @@ function ChoiceOverload() {
         ))}
       </div>
       <p className="visual-thesis">
-        무한 생성은 가능성을 늘린다. 큐레이션은 선택의 기준을 만든다.
+        AI는 결과를 늘린다. 서비스는 비교할 몇 개를 고르고 제안 이유를
+        보여 줘야 한다.
       </p>
     </FigureShell>
   );
@@ -153,10 +154,10 @@ function ChoiceOverload() {
 
 function WhyNow() {
   const items = [
-    [Bookmark, "취향이 보인다", "저장과 검색, 사진과 음악이 단서를 남긴다"],
-    [ScanLine, "방을 읽는다", "이미지와 언어를 한 흐름에서 다룬다"],
-    [Factory, "하나도 만든다", "재고 없이 주문 뒤 생산할 수 있다"],
-    [ListFilter, "가능성을 줄인다", "무한 결과를 선택 가능한 방향으로 만든다"],
+    [Bookmark, "저장 기록이 쌓였다", "검색과 저장, 사진과 음악을 참고할 수 있다"],
+    [ScanLine, "AI가 방 사진을 분석한다", "참고 이미지와 실제 방을 함께 비교한다"],
+    [Factory, "한 점씩 제작할 수 있다", "재고 없이 주문 뒤 생산할 수 있다"],
+    [ListFilter, "결과를 몇 개로 줄인다", "차이가 분명한 결과만 비교하게 한다"],
   ];
   return (
     <FigureShell eyebrow="WHY NOW" title="네 개의 변화가 같은 시기에 만났다">
@@ -174,7 +175,7 @@ function WhyNow() {
       </div>
       <div className="convergence-line">
         <span />
-        <strong>공간번역</strong>
+        <strong>공간 맞춤</strong>
         <span />
       </div>
     </FigureShell>
@@ -184,8 +185,8 @@ function WhyNow() {
 function WomenSignal() {
   return (
     <FigureShell
-      eyebrow="초기 고객 신호"
-      title="여성은 시장의 경계가 아니라 관찰의 출발점이다"
+      eyebrow="첫 고객 가설"
+      title="왜 첫 조사 대상을 여성으로 정했나"
       source="Pinterest Audience 〔11〕 · NAR 2025 Profile 〔12〕"
     >
       <div className="signal-columns">
@@ -213,8 +214,8 @@ function WomenSignal() {
         </div>
       </div>
       <p className="visual-thesis">
-        성별을 미감의 원인으로 사용하지 않는다. 행동을 더 잘 관찰할 수 있는
-        초기 렌즈로 사용한다.
+        여성이 특정 미감을 타고났다는 뜻이 아니다. 현재 공개 자료에서 이미지
+        저장과 독립적인 주거 결정을 하는 여성을 모집하기 쉽다는 뜻이다.
       </p>
     </FigureShell>
   );
@@ -223,7 +224,7 @@ function WomenSignal() {
 function LifeStage() {
   const events = ["독립", "장기 임대", "동거", "첫 자가", "이별", "재택근무", "재정착"];
   return (
-    <FigureShell eyebrow="타깃 재정의" title="나이는 달력이고, 전환은 동사다">
+    <FigureShell eyebrow="고객 기준" title="나이보다 이사와 독립이 구매 시점을 더 잘 설명한다">
       <div className="life-track">
         {events.map((event, index) => (
           <div key={event} className={index % 2 ? "life-event lower" : "life-event"}>
@@ -236,8 +237,8 @@ function LifeStage() {
         <CircleUserRound aria-hidden="true" />
         <p>
           <b>핵심 고객</b>
-          주거 전환기에 있으며, 취향의 단서는 충분하지만 실제 방의 결정으로
-          옮기지 못하는 도시 생활자
+          최근 이사·독립·동거·이별을 겪었고, 좋아하는 이미지는 많지만 실제
+          작품은 고르지 못한 도시 생활자
         </p>
       </div>
     </FigureShell>
@@ -253,7 +254,7 @@ function MarketLab() {
   return (
     <FigureShell
       eyebrow="출시 시장 가설"
-      title="세 나라는 정답이 아니라 비교 실험실이다"
+      title="왜 미국·캐나다·영국부터 비교하나"
       source="U.S. Census 〔14〕 · Statistics Canada 〔15〕 · ONS 〔16〕"
     >
       <div className="market-grid">
@@ -268,7 +269,8 @@ function MarketLab() {
         ))}
       </div>
       <p className="visual-thesis">
-        국가는 운영의 단위다. 도시는 생활의 단위이고, 방은 결정의 단위다.
+        세 나라는 영어를 공유하지만 주거 형태와 구매 습관이 달라 같은 제품을
+        비교하기 좋다.
       </p>
     </FigureShell>
   );
@@ -283,10 +285,10 @@ function TranslationMatrix() {
     ["소중한 물건", "형태 · 질감 · 비례 · 배치의 중심"],
   ];
   return (
-    <FigureShell eyebrow="번역 매트릭스" title="명사를 복사하지 않고 관계를 옮긴다">
+    <FigureShell eyebrow="작품 구성 기준" title="입력 자료에서 색과 선, 밝기와 반복을 찾는다">
       <div className="matrix-head">
-        <span>사람의 언어</span>
-        <span>공간의 언어</span>
+        <span>사용자가 준 자료</span>
+        <span>작품에서 조정할 요소</span>
       </div>
       <div className="matrix-rows">
         {rows.map(([from, to], index) => (
@@ -303,12 +305,12 @@ function TranslationMatrix() {
 
 function ThreeDirections() {
   const directions = [
-    [Brain, "기억에 가까운 방향", "나를 알아본다", "단서의 정서와 이야기를 가장 충실하게"],
-    [Box, "방에 가까운 방향", "여기에 속한다", "빛과 비율, 기존 가구와 가장 자연스럽게"],
-    [Sparkles, "가능성에 가까운 방향", "이것도 나일 수 있다", "말하지 못한 취향을 근거 있게 한 걸음 확장"],
+    [Brain, "개인 자료 우선", "입력 자료를 가장 많이 반영", "장소와 음악, 기억에서 찾은 요소를 가장 강하게"],
+    [Box, "현재 방 우선", "방과 가장 잘 어울림", "빛과 벽 크기, 기존 가구를 가장 많이 반영"],
+    [Sparkles, "새로운 제안", "기존 취향을 한 단계 확장", "전에 고르지 않은 색이나 구성을 하나 추가"],
   ];
   return (
-    <FigureShell eyebrow="큐레이션된 확신" title="하나는 판정이고, 무한은 방치다">
+    <FigureShell eyebrow="결과 수 가설" title="결과는 왜 세 개가 적당한가">
       <div className="direction-grid">
         {directions.map(([Icon, title, quoteText, body], index) => {
           const VisualIcon = Icon as typeof Brain;
@@ -323,8 +325,8 @@ function ThreeDirections() {
         })}
       </div>
       <p className="visual-thesis">
-        세 개는 진리의 숫자가 아니다. 차이를 느끼면서도 비교할 수 있는 현재의
-        제품 가설이다.
+        세 개는 한 화면에서 차이와 이유를 비교할 수 있다고 본 현재의 제품
+        가설이다. 사용자 테스트에 따라 바꿀 수 있다.
       </p>
     </FigureShell>
   );
@@ -333,7 +335,7 @@ function ThreeDirections() {
 function ValidationLoop() {
   const steps = ["관찰", "가설", "비교 테스트", "실제 선택", "수령 뒤 검증", "수정"];
   return (
-    <FigureShell eyebrow="검증 원칙" title="타깃은 틀릴 수 있게 써 놓은 예측이다">
+    <FigureShell eyebrow="검증 원칙" title="고객 가설은 데이터에 따라 바꾼다">
       <div className="validation-loop">
         {steps.map((step, index) => (
           <div key={step}>
@@ -345,7 +347,7 @@ function ValidationLoop() {
       <div className="validation-rule">
         <Check aria-hidden="true" />
         <p>
-          <b>바꾸지 않을 것</b> 취향과 방 사이의 번역 문제
+          <b>계속 확인할 문제</b> 좋아하는 이미지는 많지만 실제 작품은 고르기 어렵다
           <br />
           <b>바꿀 수 있는 것</b> 성별 · 연령 · 국가 · 채널 · 선택지 수
         </p>
@@ -381,7 +383,7 @@ function ReaderWorkbook() {
   };
 
   return (
-    <FigureShell eyebrow="나의 공간번역 노트" title="정답 대신 관찰을 저장한다">
+    <FigureShell eyebrow="내 방 점검" title="반복해서 좋아한 것부터 적어 본다">
       <div className="workbook-fields">
         <label>
           <span>반복해서 사랑한 장면</span>
@@ -392,7 +394,7 @@ function ReaderWorkbook() {
           />
         </label>
         <label>
-          <span>방이 이미 말하고 있는 것</span>
+          <span>방에 이미 있는 조건</span>
           <textarea
             value={answers.room}
             onChange={(event) => update("room", event.target.value)}
