@@ -28,7 +28,7 @@ if (!response.ok) {
   throw new Error(`Unable to render ebook for GitHub Pages: ${response.status}`);
 }
 
-const sitePath = "/eulra_ebook/";
+const sitePath = "/elura_ebook/";
 const siteUrl = `https://oysterlab.github.io${sitePath}`;
 let html = await response.text();
 

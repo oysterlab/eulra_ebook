@@ -5,11 +5,12 @@
 import {
   BookOpen,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Columns2,
   ExternalLink,
   Menu,
   Moon,
-  MoveVertical,
   Printer,
   Rows3,
   Search,
@@ -366,6 +367,7 @@ export function EbookReader() {
   const initialized = useRef(false);
   const bookReaderRef = useRef<HTMLElement>(null);
   const hudTimerRef = useRef<number | null>(null);
+  const lastTouchAtRef = useRef(0);
   const gestureRef = useRef({
     active: false,
     startX: 0,
@@ -531,6 +533,7 @@ export function EbookReader() {
 
   const handleTouchStart = (event: ReactTouchEvent<HTMLElement>) => {
     if (!mobilePaged || event.touches.length !== 1 || isInteractiveTarget(event.target)) return;
+    lastTouchAtRef.current = Date.now();
     const touch = event.touches[0];
     gestureRef.current = {
       active: true,
@@ -609,9 +612,21 @@ export function EbookReader() {
     if (!mobilePaged) return;
     const target = event.target as HTMLElement;
     const anchor = target.closest<HTMLAnchorElement>('a[href^="#"]');
-    if (!anchor) return;
-    event.preventDefault();
-    scrollTo(anchor.getAttribute("href")!.slice(1));
+    if (anchor) {
+      event.preventDefault();
+      scrollTo(anchor.getAttribute("href")!.slice(1));
+      return;
+    }
+    if (isInteractiveTarget(target) || Date.now() - lastTouchAtRef.current < 700) return;
+
+    if (event.clientX < window.innerWidth * 0.34) {
+      goToPage(currentPage - 1);
+    } else if (event.clientX > window.innerWidth * 0.66) {
+      goToPage(currentPage + 1);
+    } else {
+      setControlsVisible((visible) => !visible);
+      setSettingsOpen(false);
+    }
   };
 
   const setReadingMode = (mode: "paged" | "scroll") => {
@@ -683,7 +698,7 @@ export function EbookReader() {
             <ZoomIn aria-hidden="true" />
           </button>
           <button
-            className="icon-button"
+            className="icon-button desktop-theme-toggle"
             type="button"
             aria-label={theme === "light" ? "어두운 화면" : "밝은 화면"}
             title={theme === "light" ? "다크 모드" : "라이트 모드"}
@@ -692,7 +707,7 @@ export function EbookReader() {
             {theme === "light" ? <Moon aria-hidden="true" /> : <Sun aria-hidden="true" />}
           </button>
           <button
-            className="icon-button"
+            className="icon-button desktop-print-button"
             type="button"
             aria-label="인쇄 또는 PDF 저장"
             title="인쇄 또는 PDF 저장"
@@ -730,23 +745,73 @@ export function EbookReader() {
               <X aria-hidden="true" />
             </button>
           </header>
-          <div className="reading-mode-control" aria-label="읽기 방식">
-            <button
-              type="button"
-              aria-pressed={mobileMode === "paged"}
-              onClick={() => setReadingMode("paged")}
-            >
-              <Columns2 aria-hidden="true" />
-              페이지
-            </button>
-            <button
-              type="button"
-              aria-pressed={mobileMode === "scroll"}
-              onClick={() => setReadingMode("scroll")}
-            >
-              <Rows3 aria-hidden="true" />
-              스크롤
-            </button>
+          <div className="mobile-setting-group">
+            <span className="mobile-setting-label">읽기 방식</span>
+            <div className="reading-mode-control" aria-label="읽기 방식">
+              <button
+                type="button"
+                aria-pressed={mobileMode === "paged"}
+                onClick={() => setReadingMode("paged")}
+              >
+                <Columns2 aria-hidden="true" />
+                페이지
+              </button>
+              <button
+                type="button"
+                aria-pressed={mobileMode === "scroll"}
+                onClick={() => setReadingMode("scroll")}
+              >
+                <Rows3 aria-hidden="true" />
+                스크롤
+              </button>
+            </div>
+          </div>
+          <div className="mobile-setting-row">
+            <span className="mobile-setting-label">글자 크기</span>
+            <div className="font-size-control">
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="글자 크기 줄이기"
+                title="글자 작게"
+                disabled={fontScale <= 0.9}
+                onClick={() => setFontScale((value) => Math.max(0.9, value - 0.05))}
+              >
+                <ZoomOut aria-hidden="true" />
+              </button>
+              <output>{Math.round(fontScale * 100)}%</output>
+              <button
+                className="icon-button"
+                type="button"
+                aria-label="글자 크기 키우기"
+                title="글자 크게"
+                disabled={fontScale >= 1.2}
+                onClick={() => setFontScale((value) => Math.min(1.2, value + 0.05))}
+              >
+                <ZoomIn aria-hidden="true" />
+              </button>
+            </div>
+          </div>
+          <div className="mobile-setting-group">
+            <span className="mobile-setting-label">화면</span>
+            <div className="appearance-control" aria-label="화면 모드">
+              <button
+                type="button"
+                aria-pressed={theme === "light"}
+                onClick={() => setTheme("light")}
+              >
+                <Sun aria-hidden="true" />
+                밝게
+              </button>
+              <button
+                type="button"
+                aria-pressed={theme === "dark"}
+                onClick={() => setTheme("dark")}
+              >
+                <Moon aria-hidden="true" />
+                어둡게
+              </button>
+            </div>
           </div>
           <label className="brightness-control">
             <SunMedium aria-hidden="true" />
@@ -841,13 +906,6 @@ export function EbookReader() {
 
       {mobilePaged ? <div className="brightness-veil" aria-hidden="true" /> : null}
 
-      {mobilePaged ? (
-        <div className="brightness-edge-indicator" aria-hidden="true">
-          <SunMedium />
-          <MoveVertical />
-        </div>
-      ) : null}
-
       {brightnessHud ? (
         <div className="brightness-hud" role="status" aria-live="polite">
           <SunMedium aria-hidden="true" />
@@ -875,6 +933,43 @@ export function EbookReader() {
           </div>
         ))}
       </main>
+
+      {mobilePaged ? (
+        <nav className="mobile-page-controls" aria-label="페이지 이동">
+          <button
+            className="icon-button"
+            type="button"
+            aria-label="이전 페이지"
+            title="이전 페이지"
+            disabled={currentPage === 0}
+            onClick={() => goToPage(currentPage - 1)}
+          >
+            <ChevronLeft aria-hidden="true" />
+          </button>
+          <label className="mobile-page-scrubber">
+            <output>{currentPage + 1}</output>
+            <input
+              type="range"
+              min="1"
+              max={bookPages.length}
+              value={currentPage + 1}
+              aria-label="페이지 바로 이동"
+              onChange={(event) => goToPage(Number(event.currentTarget.value) - 1)}
+            />
+            <span>{bookPages.length}</span>
+          </label>
+          <button
+            className="icon-button"
+            type="button"
+            aria-label="다음 페이지"
+            title="다음 페이지"
+            disabled={currentPage === bookPages.length - 1}
+            onClick={() => goToPage(currentPage + 1)}
+          >
+            <ChevronRight aria-hidden="true" />
+          </button>
+        </nav>
+      ) : null}
     </div>
   );
 }

@@ -30,4 +30,4 @@ npm run build:pages
 
 정적 출판본은 `docs/`에 생성됩니다. GitHub Pages 주소는 다음과 같습니다.
 
-https://oysterlab.github.io/eulra_ebook/
+https://oysterlab.github.io/elura_ebook/
