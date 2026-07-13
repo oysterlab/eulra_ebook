@@ -33,14 +33,19 @@ test("server-renders the complete Korean web ebook", async () => {
   const html = await response.text();
   assert.match(html, /<html[^>]+lang="ko"/i);
   assert.match(html, /<title>취향을 공간에 풀어내는 시대 \| ELURA<\/title>/i);
-  assert.match(html, /좋아하는 것은 많은데, 왜 내 방에 둘 작품은 고르기 어려운가/);
-  assert.match(html, /왜 지금 이런 서비스가 가능해졌나/);
+  assert.match(html, /아트가 필요한 순간은 언제이며, 필요하다면 무엇을 기준으로 고를까/);
+  assert.match(html, /ELURA는 이 책이 검토하는 서비스 가설의 이름이다/);
+  assert.match(html, /아트가 없어도 좋은 집은 충분하다/);
+  assert.match(html, /취향 자료와 실제 공간을 함께 보는 서비스가 가능해진 이유/);
   assert.match(html, /고객 가설은 데이터에 따라 바꿔야 한다/);
   assert.match(html, /주석과 출처/);
   assert.match(html, /@elura_studio7/);
   assert.match(html, /aria-label="모바일 독서 설정"/);
   assert.match(html, /property="og:image" content="http:\/\/localhost\/og-v2\.png"/);
   assert.match(html, /name="twitter:card" content="summary_large_image"/);
+  assert.match(html, /images\/kyoto-memory-to-art\.jpg/);
+  assert.doesNotMatch(html, /집 사진을 자주 보게 되면서 달라진 선택/);
+  assert.doesNotMatch(html, /임대 집도 지금 사는 내 집이다/);
 
   const renderedPages = html.match(/data-reader-page/g) ?? [];
   assert.ok(
@@ -51,7 +56,7 @@ test("server-renders the complete Korean web ebook", async () => {
 });
 
 test("keeps production content and print assets self-contained", async () => {
-  const [css, reader, packageJson, baseBook, expanded, cover, socialImage] = await Promise.all([
+  const [css, reader, packageJson, baseBook, expanded, cover, socialImage, kyotoVisual] = await Promise.all([
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../components/EbookReader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
@@ -59,6 +64,7 @@ test("keeps production content and print assets self-contained", async () => {
     readFile(new URL("../lib/expanded-chapters.ts", import.meta.url), "utf8"),
     access(new URL("../public/images/cover.jpg", import.meta.url)),
     access(new URL("../public/og-v2.png", import.meta.url)),
+    access(new URL("../public/images/kyoto-memory-to-art.jpg", import.meta.url)),
   ]);
 
   assert.match(packageJson, /elura-space-translation-web-ebook/);
@@ -75,6 +81,7 @@ test("keeps production content and print assets self-contained", async () => {
   assert.match(expanded, /출시 국가는 같아도 방은 모두 다르다/);
   assert.equal(cover, undefined);
   assert.equal(socialImage, undefined);
+  assert.equal(kyotoVisual, undefined);
 
   await assert.rejects(access(new URL("../app/_sites-preview", import.meta.url)));
   await access(new URL("../public/images/part-home.jpg", import.meta.url));

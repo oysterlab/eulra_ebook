@@ -4,7 +4,7 @@ import "./globals.css";
 
 const title = "취향을 공간에 풀어내는 시대 | ELURA";
 const description =
-  "좋아하는 것은 많은데 왜 내 방에 둘 작품은 고르기 어려운가. 저장 이미지, 실제 방, AI와 주문형 생산을 함께 살펴본 ELURA의 웹 ebook.";
+  "아트는 공간의 필수품이 아니다. 공간을 먼저 점검하고, 아트가 필요한 경우에만 사용자 선택 자료와 실제 방, AI와 제작 조건을 함께 살펴보는 ELURA의 웹 ebook.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();

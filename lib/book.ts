@@ -21,19 +21,19 @@ const baseBook = baseBookJson as {
 
 const deckById: Record<string, string> = {
   "base-01":
-    "가구와 장식을 모두 갖췄는데도 사는 사람의 취향이 보이지 않는 이유를 살펴본다.",
+    "공간이 어색한 원인을 배치, 빛, 시선, 익숙한 물건으로 나눠 보고 아트가 필요한 경우를 구분한다.",
   "base-02":
-    "화상회의와 소셜미디어, 재택 생활이 집 꾸미기 기준에 어떤 영향을 줬는지 살펴본다.",
+    "공간을 바꾸고 싶은 이유를 자기표현보다 생활 동선과 편안함, 선택권의 관점에서 살펴본다.",
   "base-03":
-    "자가가 아니어도 처음으로 내 취향을 담게 되는 시점과 그때 필요한 물건을 알아본다.",
+    "이사와 동거, 재택근무, 가족 변화처럼 생활이 달라질 때 공간의 기준도 어떻게 바뀌는지 살펴본다.",
   "base-04":
-    "예쁜 집을 많이 저장할수록 실제 방에 둘 작품을 고르기 어려워지는 이유를 설명한다.",
+    "북마크와 스크린샷, 위시리스트처럼 흩어진 저장 자료가 곧바로 선택 기준이 되지 않는 이유를 설명한다.",
   "base-05":
     "재팬디·미드센추리 같은 스타일 이름의 장점과 한계를 실제 선택 사례로 살펴본다.",
   "base-06":
-    "좋아하는 자료, 실제 방의 조건, 예산과 제작 정보를 함께 비교하는 방법을 제시한다.",
+    "아트를 고르기로 한 뒤 사용자 선택 자료, 실제 공간, 구매 조건을 함께 비교하는 방법을 제시한다.",
   "base-07":
-    "저장 이미지와 음악, 여행 사진에서 실제 취향을 확인할 때 필요한 질문을 다룬다.",
+    "여행과 음악이 왜 참고 자료가 될 수 있는지 설명하고, 사용자가 직접 선택한 자료만 다루는 원칙을 세운다.",
   "base-08":
     "AI가 방 사진과 참고 이미지를 함께 분석할 수 있는 범위와 직접 확인해야 할 한계를 구분한다.",
   "base-09":
@@ -63,17 +63,40 @@ const visualByChapter: Partial<Record<string, TextBlock>> = {
   "base-15": { type: "visual", visual: "three-directions" },
 };
 
+const kyotoIllustration: TextBlock = {
+  type: "image",
+  src: "images/kyoto-memory-to-art.jpg",
+  alt: "비에 젖은 교토의 좁은 골목과, 어두운 무광 표면에 작은 따뜻한 면을 둔 세로형 추상 작품을 위아래로 비교한 이미지",
+  caption:
+    "위는 비에 젖은 좁은 골목이다. 아래 작품은 골목을 그대로 그리지 않고 어두운 무광 표면, 세로로 긴 구성, 작은 따뜻한 빛만 반영했다.",
+};
+
+const insertChapterIllustrations = (section: BaseSection) =>
+  section.blocks.flatMap((block) => {
+    if (
+      section.id === "base-06" &&
+      block.type === "paragraph" &&
+      block.text.startsWith("예를 들어 한 사람이 교토의 작은 골목을 좋아한다고 하자")
+    ) {
+      return [block, kyotoIllustration];
+    }
+    return [block];
+  });
+
 const baseChapters: Chapter[] = baseBook.sections
   .filter((section) => section.kind === "chapter")
-  .map((section) => ({
-    id: section.id,
-    title: section.title,
-    deck: deckById[section.id] ?? "",
-    blocks: visualByChapter[section.id]
-      ? [...section.blocks, visualByChapter[section.id]!]
-      : section.blocks,
-    source: "base",
-  }));
+  .map((section) => {
+    const blocks = insertChapterIllustrations(section);
+    return {
+      id: section.id,
+      title: section.title,
+      deck: deckById[section.id] ?? "",
+      blocks: visualByChapter[section.id]
+        ? [...blocks, visualByChapter[section.id]!]
+        : blocks,
+      source: "base",
+    };
+  });
 
 export const chapters: Chapter[] = [
   ...baseChapters,
@@ -171,7 +194,7 @@ const pages: ReaderPage[] = [
     kind: "cover",
     eyebrow: "ELURA CULTURE FORECAST 01",
     title: "취향을 공간에 풀어내는 시대",
-    deck: "좋아하는 것은 많은데, 왜 내 방에 둘 작품은 고르기 어려운가",
+    deck: "아트가 필요한 순간은 언제이며, 필요하다면 무엇을 기준으로 고를까",
     image: "images/cover.jpg",
     imageAlt:
       "책과 음반, 열쇠가 놓인 도시의 거실과 큰 추상 작품이 걸린 벽",
@@ -180,17 +203,17 @@ const pages: ReaderPage[] = [
     id: "thesis",
     kind: "colophon",
     eyebrow: "이 책의 명제",
-    title: "참고 이미지는 많아졌지만, 실제 작품을 고르기는 더 어려워졌다.",
+    title: "아트는 집의 필수품이 아니다. 필요할 때 제대로 고를 기준이 부족할 뿐이다.",
     deck:
-      "문제는 취향이 없는 데 있지 않다. 저장한 이미지와 기억을 지금 방의 크기·빛·가구·예산에 맞는 작품으로 좁힐 기준이 부족하다.",
+      "재배치와 조명, 비우기로 해결되는지 먼저 확인한다. 그래도 아트가 필요하다면 사용자가 고른 자료와 방의 크기·빛·예산을 함께 비교한다.",
   },
   {
     id: "publication-note",
     kind: "colophon",
-    eyebrow: "출간 노트",
-    title: "이 책은 확인된 사실과 제품 가설을 구분한다.",
+    eyebrow: "읽기 전에",
+    title: "ELURA는 이 책이 검토하는 서비스 가설의 이름이다.",
     deck:
-      "통계와 기술 설명에는 출처를 붙였고, 가상 사례는 실제 인터뷰와 구분했다. ELURA의 고객·국가·결과 수는 앞으로 검증할 가설로 표시했다.",
+      "사용자가 직접 고른 참고 자료와 실제 공간을 함께 보고, 아트가 필요한 경우에만 몇 가지 방향으로 좁혀 주는 방식을 검토한다. 아직 완성된 제품이나 검증된 정답은 아니다.",
   },
 ];
 
@@ -224,7 +247,7 @@ if (prologue) {
     eyebrow: "프롤로그",
     title: prologue.title,
     deck:
-      "이사를 마친 뒤 작품 하나를 고르지 못하는 장면에서, 참고 이미지가 많아도 결정이 어려운 이유를 시작한다.",
+      "공간을 바꾸고 싶을 때 구매보다 먼저 확인할 것과, 아트가 필요한 경우를 구분하는 데서 시작한다.",
   });
   pages.push(
     ...paginateBlocks(prologue.blocks, "prologue", {
@@ -246,7 +269,7 @@ for (const part of partDefinitions) {
     title: part.title,
     deck: part.deck,
     image: part.image,
-    imageAlt: `${part.title} 장을 여는 ELURA 공간 이미지`,
+    imageAlt: `${part.title} 장을 여는 공간 이미지`,
   });
 
   for (const chapterId of part.chapterIds) {

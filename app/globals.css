@@ -916,13 +916,16 @@ img {
 }
 
 .image-page {
+  display: flex;
+  height: 65rem;
+  flex-direction: column;
   background: var(--ink);
 }
 
 .image-page > img {
   width: 100%;
   height: calc(100% - 7rem);
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .image-page > p {
@@ -1987,6 +1990,14 @@ img {
     border-left: 0;
     border-radius: 0;
     box-shadow: none;
+  }
+
+  .image-page {
+    height: auto;
+  }
+
+  .image-page > img {
+    height: auto;
   }
 
   .page-footer {

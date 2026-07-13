@@ -42,27 +42,27 @@ const FigureShell = ({
 
 function TranslationGap() {
   return (
-    <FigureShell eyebrow="핵심 문제" title="좋아하는 것과 실제로 고르는 것은 다르다">
+    <FigureShell eyebrow="공간 점검" title="구매하기 전에 원인과 방법을 나눠 본다">
       <div className="gap-flow">
         <div className="flow-node tone-coral">
           <CircleUserRound aria-hidden="true" />
-          <strong>내가 좋아하는 것</strong>
-          <span>저장 이미지 · 장소 · 음악 · 기억 · 색</span>
+          <strong>지금 불편한 점</strong>
+          <span>동선 · 빛 · 수납 · 시선 · 익숙함</span>
         </div>
         <div className="flow-bridge">
-          <span>자료는 많지만</span>
-          <b>고르는 기준이 없다</b>
-          <span>그래서 결정을 미룬다</span>
+          <span>물건을 사기 전에</span>
+          <b>원인을 먼저 확인한다</b>
+          <span>필요하지 않으면 추가하지 않는다</span>
         </div>
         <div className="flow-node tone-jade">
           <Frame aria-hidden="true" />
-          <strong>지금 꾸밀 방</strong>
-          <span>벽 크기 · 빛 · 가구 · 재료 · 예산</span>
+          <strong>가능한 변화</strong>
+          <span>재배치 · 비우기 · 조명 · 패브릭 · 아트</span>
         </div>
       </div>
       <p className="visual-thesis">
-        취향이 없는 것이 아니다. 좋아하는 자료를 지금 방에 맞는 작품으로
-        좁히기 어려운 것이 문제다.
+        아트는 여러 방법 가운데 하나다. 공간에 필요한 역할이 분명할 때만
+        선택한다.
       </p>
     </FigureShell>
   );
@@ -71,42 +71,30 @@ function TranslationGap() {
 function PinterestScale() {
   return (
     <FigureShell
-      eyebrow="시장 데이터"
-      title="사람들은 이미 수십억 번 검색하고 저장한다"
-      source="Pinterest Q1 2026 Earnings Presentation 〔6〕"
+      eyebrow="저장 행동"
+      title="저장은 여러 도구와 목적에 흩어져 있다"
     >
       <div className="stat-triptych">
         <div className="stat-block tone-ink">
           <Bookmark aria-hidden="true" />
-          <strong>6억 3,100만</strong>
-          <span>월간 활성 이용자</span>
+          <strong>북마크</strong>
+          <span>읽을 글 · 업무 자료 · 참고 링크</span>
         </div>
         <div className="stat-block tone-coral">
-          <ScanLine aria-hidden="true" />
-          <strong>800억+</strong>
-          <span>월간 검색</span>
+          <MapPin aria-hidden="true" />
+          <strong>장소</strong>
+          <span>여행 · 식당 · 생활 정보</span>
         </div>
         <div className="stat-block tone-jade">
           <PackageCheck aria-hidden="true" />
-          <strong>약 절반</strong>
-          <span>상업적 성격의 검색</span>
+          <strong>위시리스트</strong>
+          <span>선물 · 비교 · 구매 후보</span>
         </div>
       </div>
-      <div className="quarter-bars" aria-label="Pinterest 월간 활성 이용자 추이">
-        {[
-          ["Q1 ’25", 570],
-          ["Q2", 578],
-          ["Q3", 600],
-          ["Q4", 619],
-          ["Q1 ’26", 631],
-        ].map(([label, value]) => (
-          <div className="quarter-bar" key={label}>
-            <span style={{ height: `${Number(value) - 500}px` }} />
-            <b>{value}</b>
-            <small>{label}</small>
-          </div>
-        ))}
-      </div>
+      <p className="visual-thesis">
+        저장했다는 사실만으로 구매 의사나 인테리어 취향을 단정할 수 없다.
+        이번 선택에 쓸 자료는 사용자가 직접 골라야 한다.
+      </p>
     </FigureShell>
   );
 }
@@ -154,13 +142,16 @@ function ChoiceOverload() {
 
 function WhyNow() {
   const items = [
-    [Bookmark, "저장 기록이 쌓였다", "검색과 저장, 사진과 음악을 참고할 수 있다"],
-    [ScanLine, "AI가 방 사진을 분석한다", "참고 이미지와 실제 방을 함께 비교한다"],
+    [Bookmark, "참고 자료를 직접 고른다", "사진과 글 가운데 필요한 자료만 선택한다"],
+    [ScanLine, "AI가 공간 조건을 비교한다", "벽의 비율과 주변 색, 참고 자료를 함께 본다"],
     [Factory, "한 점씩 제작할 수 있다", "재고 없이 주문 뒤 생산할 수 있다"],
-    [ListFilter, "결과를 몇 개로 줄인다", "차이가 분명한 결과만 비교하게 한다"],
+    [ListFilter, "선택지를 몇 개로 줄인다", "아트가 필요한 경우에만 이유와 함께 제안한다"],
   ];
   return (
-    <FigureShell eyebrow="WHY NOW" title="네 개의 변화가 같은 시기에 만났다">
+    <FigureShell
+      eyebrow="서비스가 가능한 이유"
+      title="선택한 자료와 실제 공간을 함께 비교할 조건이 갖춰졌다"
+    >
       <div className="why-grid">
         {items.map(([Icon, title, body], index) => {
           const VisualIcon = Icon as typeof Bookmark;
@@ -175,7 +166,7 @@ function WhyNow() {
       </div>
       <div className="convergence-line">
         <span />
-        <strong>공간 맞춤</strong>
+        <strong>조건을 반영한 제안</strong>
         <span />
       </div>
     </FigureShell>
